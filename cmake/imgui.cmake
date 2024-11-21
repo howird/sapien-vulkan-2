@@ -31,13 +31,19 @@ add_library(imgui STATIC
     ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
     ${imgui_SOURCE_DIR}/backends/imgui_impl_vulkan.cpp
     ${imguizmo_SOURCE_DIR}/ImGuizmo.cpp
-    ${ImGuiFileDialog_SOURCE_DIR}/ImGuiFileDialog.cpp
+    ${imguifiledialog_SOURCE_DIR}/ImGuiFileDialog.cpp
 )
 
 target_link_libraries(imgui PUBLIC glfw Vulkan::Headers)
-target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR} ${imgui_SOURCE_DIR}/backends ${imguizmo_SOURCE_DIR} ${ImGuiFileDialog_SOURCE_DIR})
+target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR} ${imgui_SOURCE_DIR}/backends ${imguizmo_SOURCE_DIR} ${imguifiledialog_SOURCE_DIR})
 set_target_properties(imgui PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 target_compile_definitions(imgui PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
+
+add_library(ImGuiFileDialog STATIC
+    ${imguifiledialog_SOURCE_DIR}/ImGuiFileDialog.cpp
+    ${imguifiledialog_SOURCE_DIR}/ImGuiFileDialog.h
+    ${imguifiledialog_SOURCE_DIR}/ImGuiFileDialogConfig.h
+)
 target_link_libraries(ImGuiFileDialog PRIVATE imgui)
 
 if(WIN32)

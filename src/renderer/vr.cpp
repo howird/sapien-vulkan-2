@@ -47,7 +47,7 @@ void VRDisplay::initDevices() {
     logger::info("using action manifest {}", gActionManifestPath);
     auto res = vr::VRInput()->SetActionManifestPath(gActionManifestPath.c_str());
     if (res != vr::EVRInputError::VRInputError_None) {
-      logger::error("failed to read action manifest {}", res);
+      logger::error("failed to read action manifest");
     }
   }
 
@@ -168,7 +168,7 @@ std::vector<std::array<float, 8>> VRDisplay::getSkeletalDataLeft() {
   vr::InputSkeletalActionData_t data{};
   auto res = vr::VRInput()->GetSkeletalActionData(mLeftHandHandle, &data, sizeof(data));
   if (res != vr::EVRInputError::VRInputError_None) {
-    logger::error("failed to get skeletal data {}", res);
+    logger::error("failed to get skeletal data");
   }
   if (data.bActive) {
     uint32_t boneCount{};
@@ -201,7 +201,7 @@ std::vector<std::array<float, 8>> VRDisplay::getSkeletalDataRight() {
   vr::InputSkeletalActionData_t data{};
   auto res = vr::VRInput()->GetSkeletalActionData(mRightHandHandle, &data, sizeof(data));
   if (res != vr::EVRInputError::VRInputError_None) {
-    logger::error("failed to get skeletal data {}", res);
+    logger::error("failed to get skeletal data");
   }
   if (data.bActive) {
     uint32_t boneCount{};
@@ -270,7 +270,7 @@ void VRDisplay::updatePoses() {
     actionSet.nPriority = 0;
     auto res = vr::VRInput()->UpdateActionState(&actionSet, sizeof(actionSet), 1);
     if (res != vr::EVRInputError::VRInputError_None) {
-      logger::error("failed to update action state {}", res);
+      logger::error("failed to update action state");
     }
   }
 
